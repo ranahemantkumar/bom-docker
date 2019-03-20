@@ -182,9 +182,17 @@ To restart
         $ npm run docker-mobile:watch
         ```
     -   keep terminal open
+    -	To stop redux build, exit container by Ctrl+P , Ctrl+Q sequence and then use following command:
+    	 ```sh
+        $ boomea-redux.sh stop
+        ```
+    -	To flush everything related to redux individual build, use following command:
+    	 ```sh
+        $ boomea-redux.sh flush
+        ```
     
 2. To start only react build:
-    -   Start Redux Individual build as described in step 1
+    -   As React container dependent on Redux build so start Redux Individual build as described in step 1
     -   open new terminal and navigate to {root directory}/mattermost-webapp
     -   Run container through:
         ```sh
@@ -204,6 +212,14 @@ To restart
         $ npm run run
         ``` 
     -   keep terminal open
+    -	To stop react build, exit container by Ctrl+P , Ctrl+Q sequence and then use following command:
+    	 ```sh
+        $ boomea-react.sh stop
+        ```
+    -	To flush everything related to redux individual build, use following command:
+    	 ```sh
+        $ boomea-react.sh flush
+        ```
 
 
 For help navigate to {root directory}/ucserver and use following command:
