@@ -26,7 +26,7 @@
     boomea-docker                       # root directory
     ├── boomea-common                   # boomea-common repo clone
     ├── ucserver                        # ucserver repo clone
-    ├──── MariaDb                       # MariaDb folder should come along with ucserver repo
+    ├──── MariaDb                       # MariaDb directory should come along with ucserver repo
     ├────── dump.sql                    # Place sql dump file and rename to dump.sql
     ├── mattermost-redux                # mattermost-redux repo clone
     ├── mattermost-webapp               # mattermost-webapp repo clone
@@ -127,14 +127,11 @@
  3. You can close this terminal
 
 ## Volumes
-1. There are four volumes used in process to store temp data between containers:
-    boomea-redux-web-volume (to store redux mattermost-webapp data)
-    boomea-redux-mobile-volume (to store redux mattermost-mobile data)
-    boomea-react-dist-data (to store react dist directory data)
+1. There is one named volume used:
     my-datavolume  (to store mariadb data)
-    These volumes can be inspected through docker commands or data can be viewed by entering into each container as described in 2,4,6       steps.
+    This volume can be inspected through docker command to get mariadb database changes done after entering into mariadb container.
 
-2. Redux compiled temp data is also stored in boomea-docker/temp folder
+2. Redux and React compiled temp data is stored in {root directory}/temp directory (created automatically on running build process)
 
 ## Stop Process
 To stop containers open new terminal, navigate to {root directory}/ucserver and use following command:<br/>
