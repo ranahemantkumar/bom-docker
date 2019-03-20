@@ -137,12 +137,12 @@
 2. Redux compiled temp data is also stored in boomea-docker/temp folder
 
 ## Stop Process
-To stop containers open new terminal, navigate to {root directory}/ucserver and use following command:
+To stop containers open new terminal, navigate to {root directory}/ucserver and use following command:<br/>
     ```sh
     $ boomea-setup.sh stop
     ```
 ## Flush Everything
-To Flush everything open new terminal, navigate to {root directory}/ucserver and run following command:
+To Flush everything open new terminal, navigate to {root directory}/ucserver and run following command:<br/>
     ```sh
     $ boomea-setup.sh flush
     ```
@@ -186,7 +186,8 @@ To restart
         ```
     -   keep terminal open
     
-2. To start only react container, 
+2. To start only react build:
+    -   Start Redux Individual build as described in step 1
     -   open new terminal and navigate to {root directory}/mattermost-webapp
     -   Run container through:
         ```sh
