@@ -6,7 +6,7 @@
    Windows & Mac: https://www.docker.com/products/docker-desktop <br/>
    Ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-   Docker already include docker compose but you may need to add it manually(you can verify by docker-compose --version command on your    cli, if it lists version, then you don't need to follow docker compose install step):
+   Docker already include docker compose but you may need to add it manually(you can verify by docker-compose --version command on your    CLI, if this print docker compose version, then you don't need to follow docker compose install step):
    https://docs.docker.com/compose/install/
 
    Make sure docker and docker-compose is running by opening command prompt and type:
@@ -22,18 +22,8 @@
 
 # Directory Structure
 
-1. Create a folder(any name) at your desired location. 
-2. For rest of document boomea-docker will refer to root directory created in step 1
-3. Get git clone for below repositories in boomea-docker folder. Replace glownes with your bitbucket username
-   git clone https://glownes@bitbucket.org/wlcommm/boomea_common.git boomea-common
-   git clone https://glownes@bitbucket.org/wlcommm/ucserver.git ucserver
-   git clone https://glownes@bitbucket.org/wlcommm/boomea_webapp.git mattermost-webapp
-   git clone https://glownes@bitbucket.org/wlcommm/boomea_redux.git mattermost-redux
-4. Place database sql file(provided by boomea team) inside boomea-docker/ucserver/MariaDb folder.Rename sql file to dump.sql.
-5. Create ssh key (name id_rsa), should be without passphrase, place under mattermost-webapp folder. Add same key to your bitbucket settings: access keys.
-6. Final Directory structure should look like:
 ```bash
-    boomea-docker
+    boomea-docker                       # root directory
     ├── boomea-common                   # boomea-common repo clone
     ├── ucserver                        # ucserver repo clone
     ├──── MariaDb                       # MariaDb folder should come along with ucserver repo
@@ -42,27 +32,43 @@
     ├── mattermost-webapp               # mattermost-webapp repo clone
     └──── id_rsa                        # id_rsa ssh key,without passphrase and added to account settings-> access keys
 ```
+1. Create a root directory(any name) at your desired location. 
+2. Get git clone for below repositories in root directory.
+   -	git clone https://{bitbucketusername}@bitbucket.org/wlcommm/boomea_common.git boomea-common
+   -	git clone https://{bitbucketusername}@bitbucket.org/wlcommm/ucserver.git ucserver
+   -	git clone https://{bitbucketusername}@bitbucket.org/wlcommm/boomea_webapp.git mattermost-webapp
+   -	git clone https://{bitbucketusername}@bitbucket.org/wlcommm/boomea_redux.git mattermost-redux
+3. Place database dump sql file(provided by boomea team) inside {root directory}/ucserver/MariaDb Directory path.
+   Note: Rename sql dump file to dump.sql.
+4. Create ssh key by name of "id_rsa", should be without passphrase, place under {root-directory}/mattermost-webapp dircetory path. Add same key to your bitbucket settings: access keys.
+5. Final Directory structure should look like above chart image.
+
 
 
 
 # Time to run setup script:
 
-1. Create the images and containers:
+## First time install
+1. Open the terminal and navigate to {root directory}/ucserver
+2. Run the following command, this will create docker images and containers:
     ```sh
     $ boomea-setup.sh install
     ```
+    once its done you can close this terminal
+# Build
 
-- Redux terminal
-2. Open a new terminal and enter into redux container through below command:
+## Build Redux
+1. Open a new terminal and navigate to {root directory}/ucserver
+2. Run the following command to enter into redux container:
    For windows OS:
    ```sh
    $ boomea-setup.sh servewin --redux
    ```
-   or for other OS : 
+   or for other OS :
    ```sh
    $ boomea-setup.sh serve --redux
    ```
-3. Run the redux watch command : 
+3. Run the redux watch command in redux container bash : 
    For web
    ```sh
    $ npm run docker-dev:watch
@@ -71,9 +77,11 @@
    ```sh
    $ npm run docker-mobile:watch
    ```
+ 4. keep this terminal open.
 
-- React terminal
-4. Open a new terminal and enter into react container through below command:
+## Build React
+1. Open a new terminal and navigate to {root directory}/ucserver
+2. Run the following command to enter into react container:
     For windows OS:
     ```sh
     $ boomea-setup.sh servewin --react
@@ -82,13 +90,15 @@
     ```sh
     $ boomea-setup.sh serve --react
     ``` 
-5. Run the react watch command : 
+3. Run the react watch command in react container bash: 
     ```sh
     $ npm run run
-    ``` 
+    ```
+4. keep this terminal open.
 
-- Ucserver terminal
-6. Open a new terminal and enter into ucserver container through below command:
+## Run Ucserver
+1. Open a new terminal and navigate to {root directory}/ucserver
+2. Run the following command to enter into ucserver:
     For windows OS:
     ```sh
     $ boomea-setup.sh servewin --ucserver
@@ -97,13 +107,15 @@
     ```sh
     $ boomea-setup.sh serve --ucserver
     ```
-7. Run the ucserver make command in ucserver container bash: 
+3. Run the ucserver make command in ucserver container bash: 
    ```sh
     $ make run-server
     ```
+4. keep this terminal open.
 
-- MariaDb terminal
-8. Open a new terminal and enter into MariaDb container through below command:
+## To access MariaDb
+1. Open a new terminal and navigate to {root directory}/ucserver
+2. Enter into MariaDb container through below command :
     For windows OS: 
     ```sh
     $ boomea-setup.sh servewin --mariadb
@@ -112,34 +124,44 @@
    ```sh
     $ boomea-setup.sh serve --mariadb
     ```
+ 3. You can close this terminal
 
-
-9. There are four volumes used in process to store temp data between containers:
+## Volumes
+1. There are four volumes used in process to store temp data between containers:
     boomea-redux-web-volume (to store redux mattermost-webapp data)
     boomea-redux-mobile-volume (to store redux mattermost-mobile data)
     boomea-react-dist-data (to store react dist directory data)
     my-datavolume  (to store mariadb data)
     These volumes can be inspected through docker commands or data can be viewed by entering into each container as described in 2,4,6       steps.
 
-10. Redux compiled temp data is also stored in boomea-docker/temp folder
+2. Redux compiled temp data is also stored in boomea-docker/temp folder
 
-11. To stop containers open new terminal and use 
+## Stop Process
+To stop containers open new terminal, navigate to {root directory}/ucserver and use following command:
     ```sh
     $ boomea-setup.sh stop
     ```
-
-12. To Flush everything run 
+## Flush Everything
+To Flush everything open new terminal, navigate to {root directory}/ucserver and run following command:
     ```sh
     $ boomea-setup.sh flush
     ```
+## Restart
+To restart 
+- Open new terminal and navigate to {root directory}/ucserver
+- Stop container using following command:
+    ```sh
+    $ boomea-setup.sh stop
+    ```
+ - Run containers using following command:
+    ```sh
+    $ boomea-setup.sh run
+    ```
+ - You can now follow build process for redux, react, ucserver as desribed above
 
-13. To restart everything stop container using step 11. and start again using step1.
-
-14. To start only redux container:
-    -   open new terminal:
-	    ```sh
-        $ cd boomea-docker/mattermost-redux
-        ``` 
+## Individual Builds
+1.  To start only redux build:
+    -   open new terminal and navigate to {root directory}/mattermost-redux
     -   Run container through:
         ```sh
         $ boomea-redux.sh run
@@ -149,7 +171,7 @@
         ```sh
         $ boomea-redux.sh servewin
         ```
-	    or for other OS 
+	For other OS 
         ```sh
         $ boomea-redux.sh serve
         ```
@@ -162,11 +184,10 @@
         ```sh
         $ npm run docker-mobile:watch
         ```
-16. To start only react container, 
-    -   open new terminal,
-	    ```sh
-        $ cd boomea-docker/mattermost-webapp
-        ``` 
+    -   keep terminal open
+    
+2. To start only react container, 
+    -   open new terminal and navigate to {root directory}/mattermost-webapp
     -   Run container through:
         ```sh
         $ boomea-react.sh run
@@ -184,10 +205,10 @@
         ```sh
         $ npm run run
         ``` 
+    -   keep terminal open
 
 
-
-For help use
+For help navigate to {root directory}/ucserver and use following command:
 ```sh
 $ boomea-setup.sh --help
 ```
