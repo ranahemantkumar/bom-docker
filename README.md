@@ -138,14 +138,14 @@
 
 ## Stop Process
 To stop containers open new terminal, navigate to {root directory}/ucserver and use following command:<br/>
-    ```sh
-    $ boomea-setup.sh stop
-    ```
+  ```sh
+  $ boomea-setup.sh stop
+  ```
 ## Flush Everything
 To Flush everything open new terminal, navigate to {root directory}/ucserver and run following command:<br/>
-    ```sh
-    $ boomea-setup.sh flush
-    ```
+  ```sh
+  $ boomea-setup.sh flush
+  ```
 ## Restart
 To restart 
 - Open new terminal and navigate to {root directory}/ucserver
